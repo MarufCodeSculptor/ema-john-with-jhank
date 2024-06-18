@@ -34,10 +34,10 @@ const Shop = () => {
    */
 
   useEffect(() => {
-    fetch('http://localhost:5000/products')
+    fetch(`http://localhost:5000/products?page=${currentPage}&size=${itemsPerpage}`)
       .then(res => res.json())
       .then(data => setProducts(data));
-  }, []);
+  }, [currentPage,itemsPerpage]);
 
   useEffect(() => {
     const storedCart = getShoppingCart();
@@ -85,15 +85,14 @@ const Shop = () => {
   };
 
   const handlePrev = () => {
-    if (currentPage > 0) {
+    if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
     }
   };
   const handleNext = () => {
-    if(currentPage>= pagesArray.length){
-        setCurrentPage(currentPage + 1);
+    if (currentPage < pagesArray.length) {
+      setCurrentPage(currentPage + 1);
     }
-    
   };
   return (
     <div className="shop-container">
